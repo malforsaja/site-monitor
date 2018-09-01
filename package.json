@@ -1,0 +1,21 @@
+{
+  "name": "monitor-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connectivity": "^1.0.1",
+    "cron": "^1.4.1",
+    "domain-ping": "^0.1.9",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "nodemailer": "^4.6.8",
+    "ping": "^0.2.2"
+  }
+}
