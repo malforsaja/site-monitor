@@ -1,16 +1,16 @@
 const express = require('express')
 const https = require('https')
 const domainPing = require("domain-ping");
-var connectivity = require('connectivity');
-var CronJob = require('cron').CronJob;
-var nodemailer = require('nodemailer');
+const connectivity = require('connectivity');
+const CronJob = require('cron').CronJob;
+const nodemailer = require('nodemailer');
 require('dotenv').config()
 
 
 const app = express()
 const port = 3000
 
-var transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL,
@@ -27,12 +27,11 @@ const job = new CronJob('0 0 */1 * * *', function () { // every 2 minutes 0 */2 
         if (online) {
             console.log('connected to the internet!')
             // loop the sites
-            for (let i = 0; i < sites.length; i++) {
+            for (const site of sites) {
                 // ping each site
-                domainPing(sites[i])
+                domainPing(site)
                     .then((res) => {
                         console.log(res.domain, ' is online');
-                        //console.log(res); 
                     })
                     .catch((error) => {
                         console.log(error.domain, ' is offline');
@@ -59,23 +58,6 @@ const job = new CronJob('0 0 */1 * * *', function () { // every 2 minutes 0 */2 
 });
 
 job.start();
-
-
-/* https.get(sites[i], function (res) {
-        
-        // If you get here, you have a response.
-        // If you want, you can check the status code here to verify that it's `200` or some other `2xx`.
-        if (res.statusCode == 200) {
-            console.log('site is online');
-        }
-        
-    }).on('error', function (e) {
-        console.log('error arrin');
-        
-        // Here, an error occurred.  Check `e` for the error.
-        console.log('site is offline');
-
-    });; */
 
 app.listen(port, (err) => {
     if (err) {
